@@ -1,281 +1,577 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kolam Pattern Generator - Test Frontend</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            overflow: hidden;
-        }
-        
-        .header {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        
-        .header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            font-weight: 300;
-        }
-        
-        .header p {
-            margin: 10px 0 0 0;
-            opacity: 0.9;
-            font-size: 1.1em;
-        }
-        
-        .main-content {
-            display: flex;
-            min-height: 600px;
-        }
-        
-        .controls {
-            flex: 1;
-            padding: 30px;
-            background: #f8f9fa;
-            border-right: 1px solid #e9ecef;
-        }
-        
-        .visualization {
-            flex: 2;
-            padding: 30px;
-            background: white;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-        
-        input, select, button {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-        
-        input:focus, select:focus {
-            outline: none;
-            border-color: #4ecdc4;
-        }
-        
-        button {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 10px;
-            transition: transform 0.2s;
-        }
-        
-        button:hover {
-            transform: translateY(-2px);
-        }
-        
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .status {
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-weight: 500;
-        }
-        
-        .status.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .status.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .status.info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-        }
-        
-        #canvas {
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            background: white;
-            max-width: 100%;
-            height: auto;
-        }
-        
-        .pattern-info {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-        
-        .pattern-info h3 {
-            margin-top: 0;
-            color: #333;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .info-item {
-            background: white;
-            padding: 15px;
-            border-radius: 6px;
-            border-left: 4px solid #4ecdc4;
-        }
-        
-        .info-label {
-            font-weight: 600;
-            color: #666;
-            font-size: 0.9em;
-        }
-        
-        .info-value {
-            font-size: 1.2em;
-            color: #333;
-            margin-top: 5px;
-        }
-        
-        .examples {
-            margin-top: 20px;
-        }
-        
-        .examples h4 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .example-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .example-btn {
-            background: #6c757d;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s;
-        }
-        
-        .example-btn:hover {
-            background: #5a6268;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kolam Pattern Generator - Test Frontend</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: black;
+      color: white;
+    }
+
+    /* HERO SECTION - RESPONSIVE */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 400px;
+      width: 100%;
+      background: black;
+      overflow: hidden;
+    }
+
+    .hero svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      max-width: 731px;
+      max-height: 636px;
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      right: 40px;
+      color: white;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .hero-content h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+    }
+
+    .hero-content p {
+      margin: 10px 0 0;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      opacity: 0.9;
+    }
+
+    /* CONTAINER - RESPONSIVE */
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      background: #111;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      overflow: hidden;
+      padding: 10px;
+      color: white;
+    }
+
+    /* HEADER - RESPONSIVE */
+    .header {
+      background: #222;
+      color: white;
+      padding: clamp(20px, 4vw, 30px);
+      text-align: center;
+      border-radius: 10px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 300;
+    }
+
+    .header p {
+      margin: 10px 0 0;
+      opacity: 0.9;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+    }
+
+    /* MAIN CONTENT - FLEXIBLE LAYOUT */
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      min-height: 400px;
+      margin-top: 20px;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .main-content {
+        flex-direction: row;
+        gap: 0;
+      }
+    }
+
+    /* ANIMATIONS - RESPONSIVE */
+    .hero svg path,
+    .hero svg circle {
+      stroke: white;
+      stroke-width: 0.5;
+      fill: none;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: draw 3s ease forwards;
+    }
+
+    .hero svg path {
+      animation-delay: 0.2s;
+    }
+
+    .hero svg circle:nth-of-type(1) { animation-delay: 0.4s; }
+    .hero svg circle:nth-of-type(2) { animation-delay: 0.6s; }
+    .hero svg circle:nth-of-type(3) { animation-delay: 0.8s; }
+    .hero svg circle:nth-of-type(4) { animation-delay: 1s; }
+    .hero svg circle:nth-of-type(5) { animation-delay: 1.2s; }
+    .hero svg circle:nth-of-type(6) { animation-delay: 1.4s; }
+    .hero svg circle:nth-of-type(7) { animation-delay: 1.6s; }
+    .hero svg circle:nth-of-type(8) { animation-delay: 1.8s; }
+    .hero svg circle:nth-of-type(9) { animation-delay: 2s; }
+
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .hero svg .gradient-fill {
+      fill: url(#paint0_linear_1_2);
+      stroke: none;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 3s;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* CONTROLS - RESPONSIVE */
+    .controls {
+      flex: 1;
+      padding: clamp(15px, 3vw, 30px);
+      background: #111;
+      border-right: none;
+      border-bottom: 1px solid #333;
+    }
+
+    @media (min-width: 768px) {
+      .controls {
+        border-right: 1px solid #333;
+        border-bottom: none;
+      }
+    }
+
+    .controls h3 {
+      margin-top: 0;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+    }
+
+    /* VISUALIZATION - RESPONSIVE */
+    .visualization {
+      flex: 2;
+      padding: clamp(15px, 3vw, 30px);
+      background: #111;
+      color: white;
+    }
+
+    .visualization h3 {
+      margin-top: 0;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+    }
+
+    /* FORM ELEMENTS - RESPONSIVE */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #ccc;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: clamp(8px, 2vw, 12px);
+      border: 2px solid #333;
+      border-radius: 8px;
+      font-size: clamp(14px, 2.5vw, 16px);
+      background: #111;
+      color: white;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #4ecdc4;
+    }
+
+    button {
+      background: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 10px;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      background: #555;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* STATUS MESSAGES - RESPONSIVE */
+    .status {
+      padding: clamp(10px, 2vw, 15px);
+      border-radius: 8px;
+      margin: 15px 0;
+      font-weight: 500;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+
+    .status.success {
+      background: #2e7d32;
+      color: white;
+      border: 1px solid #1b5e20;
+    }
+
+    .status.error {
+      background: #c62828;
+      color: white;
+      border: 1px solid #8e0000;
+    }
+
+    .status.info {
+      background: #0277bd;
+      color: white;
+      border: 1px solid #01579b;
+    }
+
+    /* CANVAS - RESPONSIVE */
+    #canvas {
+      border: 2px solid #333;
+      border-radius: 8px;
+      background: #111;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      aspect-ratio: 1;
+    }
+
+    /* PATTERN INFO - RESPONSIVE */
+    .pattern-info {
+      background: #111;
+      padding: clamp(15px, 3vw, 20px);
+      border-radius: 8px;
+      margin-top: 20px;
+      border-left: 4px solid #4ecdc4;
+    }
+
+    .pattern-info h3 {
+      margin-top: 0;
+      color: white;
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: clamp(10px, 2vw, 15px);
+      margin-top: 15px;
+    }
+
+    @media (max-width: 480px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .info-item {
+      background: #222;
+      padding: clamp(10px, 2.5vw, 15px);
+      border-radius: 6px;
+      border-left: 4px solid #4ecdc4;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #aaa;
+      font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+    }
+
+    .info-value {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: white;
+      margin-top: 5px;
+      word-break: break-word;
+    }
+
+    /* SEQUENCE DISPLAY - RESPONSIVE */
+    .sequence-display {
+      margin-top: 10px;
+      font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+      word-break: break-all;
+      line-height: 1.4;
+    }
+
+    /* EXAMPLES - RESPONSIVE */
+    .examples {
+      margin-top: 20px;
+    }
+
+    .examples h4 {
+      color: white;
+      margin-bottom: 10px;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+    }
+
+    .example-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .example-btn {
+      background: #555;
+      color: white;
+      border: none;
+      padding: clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 16px);
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: clamp(12px, 2vw, 14px);
+      transition: background 0.3s;
+      flex: 0 0 auto;
+    }
+
+    .example-btn:hover {
+      background: #777;
+    }
+
+    /* MOBILE SPECIFIC ADJUSTMENTS */
+    @media (max-width: 480px) {
+      .container {
+        margin: 10px;
+        border-radius: 10px;
+        padding: 5px;
+      }
+
+      .hero-content {
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+      }
+
+      .controls, .visualization {
+        padding: 15px;
+      }
+
+      input, select, button {
+        padding: 12px;
+        font-size: 16px; /* Prevent zoom on iOS */
+      }
+    }
+
+    /* TABLET ADJUSTMENTS */
+    @media (min-width: 481px) and (max-width: 767px) {
+      .container {
+        margin: 15px;
+      }
+
+      .main-content {
+        flex-direction: column;
+      }
+
+      #canvas {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    }
+
+    /* DESKTOP ADJUSTMENTS */
+    @media (min-width: 1200px) {
+      .container {
+        margin: 40px auto;
+        padding: 20px;
+      }
+    }
+
+    /* LANDSCAPE PHONE ADJUSTMENTS */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .hero {
+        height: 100vh;
+        min-height: 300px;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .hero-content p {
+        font-size: 1rem;
+      }
+    }
+
+    /* HIGH DPI DISPLAYS */
+    @media (min-resolution: 2dppx) {
+      .hero svg {
+        image-rendering: crisp-edges;
+      }
+    }
+
+    /* ACCESSIBILITY IMPROVEMENTS */
+    @media (prefers-reduced-motion: reduce) {
+      .hero svg path,
+      .hero svg circle,
+      .hero svg .gradient-fill {
+        animation: none;
+        stroke-dasharray: none;
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+
+      button {
+        transition: none;
+      }
+    }
+
+    /* FOCUS STYLES FOR ACCESSIBILITY */
+    button:focus,
+    input:focus,
+    select:focus {
+      outline: 2px solid #4ecdc4;
+      outline-offset: 2px;
+    }
+
+    /* TOUCH TARGETS */
+    @media (pointer: coarse) {
+      button {
+        min-height: 44px;
+      }
+
+      .example-btn {
+        min-height: 44px;
+        padding: 8px 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🕸️ Kolam Pattern Generator</h1>
-            <p>Generate beautiful Kolam patterns using mathematical sequences</p>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <svg width="731" height="636" viewBox="0 0 731 636" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g filter="url(#filter0_n_1_2)">
+        <mask id="path-1-inside-1_1_2" fill="white">
+          <path d="M361.521 157.025C382.201 157.423 402.599 161.889 421.553 170.17C440.506 178.45 457.643 190.383 471.984 205.287C486.326 220.19 497.591 237.772 505.138 257.03C512.685 276.287 516.364 296.842 515.967 317.521C515.57 338.201 511.103 358.599 502.823 377.553C494.542 396.506 482.609 413.643 467.706 427.984C452.802 442.326 435.22 453.592 415.963 461.138C396.705 468.685 376.15 472.364 355.471 471.967L358.496 314.496L361.521 157.025Z"/>
+        </mask>
+        <path class="gradient-fill" d="M361.521 157.025C382.201 157.423 402.599 161.889 421.553 170.17C440.506 178.45 457.643 190.383 471.984 205.287C486.326 220.19 497.591 237.772 505.138 257.03C512.685 276.287 516.364 296.842 515.967 317.521C515.57 338.201 511.103 358.599 502.823 377.553C494.542 396.506 482.609 413.643 467.706 427.984C452.802 442.326 435.22 453.592 415.963 461.138C396.705 468.685 376.15 472.364 355.471 471.967L358.496 314.496L361.521 157.025Z" fill="url(#paint0_linear_1_2)"/>
+        <path d="M361.521 157.025C382.201 157.423 402.599 161.889 421.553 170.17C440.506 178.45 457.643 190.383 471.984 205.287C486.326 220.19 497.591 237.772 505.138 257.03C512.685 276.287 516.364 296.842 515.967 317.521C515.57 338.201 511.103 358.599 502.823 377.553C494.542 396.506 482.609 413.643 467.706 427.984C452.802 442.326 435.22 453.592 415.963 461.138C396.705 468.685 376.15 472.364 355.471 471.967L358.496 314.496L361.521 157.025Z" stroke="white" mask="url(#path-1-inside-1_1_2)"/>
+      </g>
+      <circle cx="515.5" cy="314.5" r="157.25" stroke="white" stroke-width="0.5"/>
+      <circle cx="357.5" cy="315.5" r="157.25" stroke="white" stroke-width="0.5"/>
+      <circle cx="358" cy="238" r="77.75" stroke="white" stroke-width="0.5"/>
+      <circle cx="436" cy="315" r="77.75" stroke="white" stroke-width="0.5"/>
+      <circle cx="358" cy="395" r="77.75" stroke="white" stroke-width="0.5"/>
+      <circle cx="280" cy="317" r="77.75" stroke="white" stroke-width="0.5"/>
+      <circle cx="200.5" cy="314.5" r="157.25" stroke="white" stroke-width="0.5"/>
+      <circle cx="357.5" cy="472.5" r="157.25" stroke="white" stroke-width="0.5"/>
+      <circle cx="357.5" cy="157.5" r="157.25" stroke="white" stroke-width="0.5"/>
+      <defs>
+        <filter id="filter0_n_1_2" x="355.471" y="157.025" width="160.525" height="314.971" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+          <feTurbulence type="fractalNoise" baseFrequency="1.1111111640930176 1.1111111640930176" stitchTiles="stitch" numOctaves="3" result="noise" seed="4390" />
+          <feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
+          <feComponentTransfer in="alphaNoise" result="coloredNoise1">
+            <feFuncA type="discrete" tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+          </feComponentTransfer>
+          <feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped" />
+          <feFlood flood-color="rgba(0, 0, 0, 0.25)" result="color1Flood" />
+          <feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
+          <feMerge result="effect1_noise_1_2">
+            <feMergeNode in="shape" />
+            <feMergeNode in="color1" />
+          </feMerge>
+        </filter>
+        <linearGradient id="paint0_linear_1_2" x1="361.521" y1="157.025" x2="355.471" y2="471.967" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#4BA3AA"/>
+          <stop offset="1" stop-color="#3A56AD"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <div class="hero-content">
+      <h1>Kolam Generator</h1>
+      <p>Mathematics meets tradition</p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <section class="container">
+    <div class="header">
+      <h1>🕸️ Kolam Pattern Generator</h1>
+      <p>Generate beautiful Kolam patterns using mathematical sequences</p>
+    </div>
+    <div class="main-content">
+      <div class="controls">
+        <h3>Pattern Parameters</h3>
+        
+        <div class="form-group">
+          <label for="density">Density (1-20):</label>
+          <input type="number" id="density" value="5" min="1" max="20">
         </div>
         
-        <div class="main-content">
-            <div class="controls">
-                <h3>Pattern Parameters</h3>
-                
-                <div class="form-group">
-                    <label for="m">Number of dots per arm (m):</label>
-                    <input type="number" id="m" value="5" min="1" max="20">
-                </div>
-                
-                <div class="form-group">
-                    <label for="n">Number of arms (n):</label>
-                    <input type="number" id="n" value="8" min="1" max="20">
-                </div>
-                
-                <div class="form-group">
-                    <label for="type">Kolam Type:</label>
-                    <select id="type">
-                        <option value="hridaya">Hridaya Kolam (Heart-shaped)</option>
-                        <option value="pulli">Pulli Kolam (Dot-based)</option>
-                        <option value="rangoli">Rangoli Kolam (Artistic)</option>
-                        <option value="muggulu">Muggulu Kolam (Geometric)</option>
-                        <option value="alpana">Alpana Kolam (Floral)</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="style">Connection style:</label>
-                    <select id="style">
-                        <option value="curves">Curves</option>
-                        <option value="lines">Straight Lines</option>
-                        <option value="arcs">Arcs</option>
-                    </select>
-                </div>
-                
-                <button id="generateBtn" onclick="generatePattern()">Generate Pattern</button>
-                
-                <div id="status"></div>
-                
-                <div class="examples">
-                    <h4>Quick Examples:</h4>
-                    <div class="example-buttons">
-                        <button class="example-btn" onclick="loadExample(4, 5)">m=4, n=5</button>
-                        <button class="example-btn" onclick="loadExample(5, 8)">m=5, n=8</button>
-                        <button class="example-btn" onclick="loadExample(6, 7)">m=6, n=7</button>
-                        <button class="example-btn" onclick="loadExample(8, 9)">m=8, n=9</button>
-                        <button class="example-btn" onclick="loadExample(10, 7)">m=10, n=7</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="visualization">
-                <h3>Pattern Visualization</h3>
-                <canvas id="canvas" width="500" height="500"></canvas>
-                
-                <div id="patternInfo" class="pattern-info" style="display: none;">
-                    <h3>Pattern Information</h3>
-                    <div id="infoContent"></div>
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="type">Kolam Type:</label>
+          <select id="type">
+            <option value="hridaya">Hridaya Kolam (Heart-shaped)</option>
+            <option value="pulli">Pulli Kolam (Dot-based)</option>
+            <option value="rangoli">Rangoli Kolam (Artistic)</option>
+            <option value="muggulu">Muggulu Kolam (Geometric)</option>
+            <option value="alpana">Alpana Kolam (Floral)</option>
+          </select>
         </div>
+        
+        <div class="form-group">
+          <label for="style">Connection style:</label>
+          <select id="style">
+            <option value="curves">Curves</option>
+            <option value="lines">Straight Lines</option>
+            <option value="arcs">Arcs</option>
+          </select>
+        </div>
+        
+        <button id="generateBtn" onclick="generatePattern()">Generate Pattern</button>
+        
+        <div id="status"></div>
+      </div>
+      
+      <div class="visualization">
+        <h3>Pattern Visualization</h3>
+        <canvas id="canvas" width="500" height="500"></canvas>
+        
+        <div id="patternInfo" class="pattern-info" style="display: none;">
+          <h3>Pattern Information</h3>
+          <div id="infoContent"></div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <script>
+  <script>
         const API_BASE = 'http://localhost:5000/api';
         
         function showStatus(message, type = 'info') {
@@ -309,47 +605,53 @@
             }
         }
         
+        function gcd(a, b) {
+            return b === 0 ? a : gcd(b, a % b);
+        }
+
+        // Compute a coprime pair based on density
+        function getCoprimePair(density) {
+            let m = density;
+            let n = Math.max(1, Math.floor(m * 0.6));
+
+            // Increment n until gcd(m,n) == 1
+            while (gcd(m, n) !== 1) {
+                n++;
+            }
+
+            return { m, n };
+        }
+
         async function generatePattern() {
-            const m = parseInt(document.getElementById('m').value);
-            const n = parseInt(document.getElementById('n').value);
+            const density = parseInt(document.getElementById('density').value);
             const style = document.getElementById('style').value;
             const kolamType = document.getElementById('type').value;
-            
+
+            const { m, n } = getCoprimePair(density);
+
             const generateBtn = document.getElementById('generateBtn');
             generateBtn.disabled = true;
             generateBtn.textContent = 'Generating...';
-            
+
+            showStatus(`Generating pattern with m=${m}, n=${n}...`, 'info');
+
             try {
-                // First validate parameters
-                showStatus('Validating parameters...', 'info');
-                const validation = await validateParameters();
-                
-                if (!validation.valid) {
-                    showStatus(`❌ ${validation.error}`, 'error');
-                    return;
-                }
-                
-                showStatus('✅ Parameters valid! Generating pattern...', 'success');
-                
-                // Generate pattern
+                // send m and n to backend
                 const response = await fetch(`${API_BASE}/generate`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ m, n, style, type: kolamType })
                 });
-                
+
                 const result = await response.json();
-                
+
                 if (result.success) {
-                    showStatus('✅ Pattern generated successfully!', 'success');
+                    showStatus(`✅ Pattern generated! (m=${m}, n=${n})`, 'success');
                     drawPattern(result.pattern);
                     showPatternInfo(result.pattern);
                 } else {
                     showStatus(`❌ Error: ${result.error}`, 'error');
                 }
-                
             } catch (error) {
                 showStatus(`❌ Network error: ${error.message}`, 'error');
             } finally {
@@ -357,7 +659,7 @@
                 generateBtn.textContent = 'Generate Pattern';
             }
         }
-        
+
         function drawPattern(pattern) {
             const canvas = document.getElementById('canvas');
             const ctx = canvas.getContext('2d');
