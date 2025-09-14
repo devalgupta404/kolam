@@ -103,10 +103,7 @@ class KolamGenerator:
         dots = self.generate_reference_dots(m, n)
         connections = []
         
-        # Create beautiful flower-like pattern from center
         center_dots = [dots[arm][0] for arm in range(n)]
-        
-        # Connect center dots in flower pattern (every other arm)
         for i in range(0, n, 2):
             current = center_dots[i]
             next_dot = center_dots[(i + 2) % n]
@@ -115,8 +112,6 @@ class KolamGenerator:
                 'to': next_dot,
                 'style': connection_style
             })
-        
-        # Create petal-like connections from center to outer dots
         for arm in range(n):
             center_dot = dots[arm][0]
             for dot in range(1, m):
@@ -126,8 +121,6 @@ class KolamGenerator:
                     'to': current_dot,
                     'style': connection_style
                 })
-        
-        # Create flowing connections between adjacent arms
         for arm in range(n):
             next_arm = (arm + 1) % n
             for dot in range(1, m):
@@ -138,8 +131,6 @@ class KolamGenerator:
                     'to': next_dot,
                     'style': connection_style
                 })
-        
-        # Connect outer dots in elegant circular pattern
         for arm in range(n):
             current_dot = dots[arm][m - 1]
             next_arm = (arm + 1) % n
@@ -157,8 +148,6 @@ class KolamGenerator:
             raise ValueError("Muggulu pattern requires at least 2 dots per arm")
         dots = self.generate_reference_dots(m, n)
         connections = []
-        
-        # Create symmetric diamond patterns by connecting opposite arms
         for arm in range(n):
             opposite_arm = (arm + n // 2) % n
             for dot in range(m):
@@ -169,8 +158,6 @@ class KolamGenerator:
                     'to': next_dot,
                     'style': connection_style
                 })
-        
-        # Create inner diamond patterns
         for arm in range(n):
             next_arm = (arm + 1) % n
             for dot in range(m - 1):
@@ -181,8 +168,6 @@ class KolamGenerator:
                     'to': next_dot,
                     'style': connection_style
                 })
-        
-        # Connect consecutive dots within each arm for structure
         for arm in range(n):
             for dot in range(m - 1):
                 current_dot = dots[arm][dot]
@@ -239,7 +224,6 @@ class KolamGenerator:
                     next_dot_level = S_prime[(i + 1) % len(S_prime)] - 1
                     current_dot = dots[current_arm][current_dot_level]
                     next_dot = dots[next_arm][next_dot_level]
-                
                     connections.append({
                         'from': {
                             'x': current_dot['x'],
@@ -391,7 +375,6 @@ def validate_parameters():
 
 @app.route('/api/types', methods=['GET'])
 def get_kolam_types():
-    """Get all available Kolam types"""
     return jsonify({
         'success': True,
         'types': kolam_gen.kolam_types
