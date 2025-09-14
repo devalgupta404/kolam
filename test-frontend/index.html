@@ -228,6 +228,17 @@
                 </div>
                 
                 <div class="form-group">
+                    <label for="type">Kolam Type:</label>
+                    <select id="type">
+                        <option value="hridaya">Hridaya Kolam (Heart-shaped)</option>
+                        <option value="pulli">Pulli Kolam (Dot-based)</option>
+                        <option value="rangoli">Rangoli Kolam (Artistic)</option>
+                        <option value="muggulu">Muggulu Kolam (Geometric)</option>
+                        <option value="alpana">Alpana Kolam (Floral)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
                     <label for="style">Connection style:</label>
                     <select id="style">
                         <option value="curves">Curves</option>
@@ -302,6 +313,7 @@
             const m = parseInt(document.getElementById('m').value);
             const n = parseInt(document.getElementById('n').value);
             const style = document.getElementById('style').value;
+            const kolamType = document.getElementById('type').value;
             
             const generateBtn = document.getElementById('generateBtn');
             generateBtn.disabled = true;
@@ -325,7 +337,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ m, n, style })
+                    body: JSON.stringify({ m, n, style, type: kolamType })
                 });
                 
                 const result = await response.json();
@@ -422,6 +434,10 @@
                     <div class="info-item">
                         <div class="info-label">GCD(m,n)</div>
                         <div class="info-value">${gcd(pattern.m, pattern.n)}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Kolam Type</div>
+                        <div class="info-value">${pattern.kolam_name || pattern.kolam_type || 'Hridaya'}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Algorithm</div>
