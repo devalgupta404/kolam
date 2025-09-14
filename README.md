@@ -298,7 +298,7 @@ Based on the research papers, here are some valid pattern combinations:
 - ✅ **Pattern Classification**: KolamNetV2 inspired classification
 - ✅ **Modular Arithmetic**: Algorithm 1 implementation
 - ✅ **Parameter Validation**: Coprime constraint checking
-- ✅ **Multiple Connection Styles**: Curves, lines, arcs
+- ✅ **Multiple Connection Styles**: Curves, lines
 - ✅ **RESTful API Design**: Clean, documented endpoints
 - ✅ **Interactive Test Frontend**: Real-time pattern generation
 - ✅ **Mathematical Foundation**: Traditional and modern approaches

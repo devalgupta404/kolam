@@ -545,14 +545,13 @@
           </select>
         </div>
         
-        <div class="form-group">
-          <label for="style">Connection style:</label>
-          <select id="style">
-            <option value="curves">Curves</option>
-            <option value="lines">Straight Lines</option>
-            <option value="arcs">Arcs</option>
-          </select>
-        </div>
+                <div class="form-group">
+                    <label for="style">Connection style:</label>
+                    <select id="style">
+                        <option value="curves">Curves</option>
+                        <option value="lines">Straight Lines</option>
+                    </select>
+                </div>
         
         <button id="generateBtn" onclick="generatePattern()">Generate Pattern</button>
         
@@ -688,16 +687,15 @@
             pattern.connections.forEach(conn => {
                 ctx.beginPath();
                 
-                if (conn.style === 'curves' || conn.style === 'arcs') {
-                    // Draw curved lines
-                    const fromX = centerX + conn.from.x;
-                    const fromY = centerY + conn.from.y;
-                    const toX = centerX + conn.to.x;
-                    const toY = centerY + conn.to.y;
-                    
+                const fromX = centerX + conn.from.x;
+                const fromY = centerY + conn.from.y;
+                const toX = centerX + conn.to.x;
+                const toY = centerY + conn.to.y;
+                
+                if (conn.style === 'curves') {
+                    // Draw smooth curved lines
                     const midX = (fromX + toX) / 2;
                     const midY = (fromY + toY) / 2;
-                    
                     const controlX = midX + (toY - fromY) * 0.3;
                     const controlY = midY - (toX - fromX) * 0.3;
                     
@@ -705,8 +703,8 @@
                     ctx.quadraticCurveTo(controlX, controlY, toX, toY);
                 } else {
                     // Draw straight lines
-                    ctx.moveTo(centerX + conn.from.x, centerY + conn.from.y);
-                    ctx.lineTo(centerX + conn.to.x, centerY + conn.to.y);
+                    ctx.moveTo(fromX, fromY);
+                    ctx.lineTo(toX, toY);
                 }
                 
                 ctx.stroke();
