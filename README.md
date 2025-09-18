@@ -161,124 +161,14 @@ The API will be available at `http://localhost:5000`
 ### Testing with Frontend
 
 1. Open `test-frontend/index.html` in a web browser
-2. Enter m and n values (e.g., m=5, n=8)
-3. Select Kolam type from dropdown
-4. Click "Generate Pattern" to see the Kolam design
-5. Try different examples using the quick buttons
+2. Set Density (controls m,n under the hood as a coprime pair)
+3. Select Kolam Type and Connection Style (curves/lines)
+4. (Optional) Keep "Animated Generation" checked for step-by-step drawing
+5. Click "Generate Pattern" to visualize
 
-## API Endpoints
+## API (overview only)
 
-### POST /api/generate
-
-Generate a Kolam pattern.
-
-**Request:**
-
-```json
-{
-  "m": 5,
-  "n": 8,
-  "style": "curves",
-  "type": "hridaya"
-}
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "pattern": {
-    "m": 5,
-    "n": 8,
-    "kolam_type": "hridaya",
-    "kolam_name": "Hridaya Kolam",
-    "description": "Heart-shaped traditional Kolam with radial symmetry",
-    "generator_sequence": [5, 3, 1, 4, 2],
-    "extended_sequence": [5, 3, 1, 4, 2, 5, 3, 1, 4, 2, ...],
-    "connections": [...],
-    "dots": [...],
-    "center": {"x": 0, "y": 0},
-    "algorithm": "Algorithm 1 - Hridaya Kolam"
-  }
-}
-```
-
-### POST /api/validate
-
-Validate parameters before generation.
-
-**Request:**
-
-```json
-{
-  "m": 5,
-  "n": 8
-}
-```
-
-**Response:**
-
-```json
-{
-  "valid": true,
-  "m": 5,
-  "n": 8,
-  "gcd": 1,
-  "error": null
-}
-```
-
-### GET /api/types
-
-Get all available Kolam types.
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "types": {
-    "hridaya": {
-      "name": "Hridaya Kolam",
-      "description": "Heart-shaped traditional Kolam with radial symmetry",
-      "algorithm": "algorithm_1"
-    },
-    "pulli": {
-      "name": "Pulli Kolam",
-      "description": "Dot-based Kolam with geometric patterns",
-      "algorithm": "pulli_algorithm"
-    }
-  }
-}
-```
-
-### POST /api/classify
-
-Classify a Kolam pattern (KolamNetV2 inspired).
-
-**Request:**
-
-```json
-{
-  "m": 5,
-  "n": 8
-}
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "predicted_type": "hridaya",
-  "confidence": 0.9,
-  "type_info": {
-    "name": "Hridaya Kolam",
-    "description": "Heart-shaped traditional Kolam with radial symmetry"
-  }
-}
-```
+This project exposes a small Flask API used by the test frontend. Refer to `backend/app.py` for the exact routes currently implemented. The test-frontend calls the API via `fetch` and renders results on an HTML5 Canvas. Detailed route documentation has been intentionally omitted here to keep the README concise and aligned with the current codebase.
 
 ## Example Patterns
 
@@ -349,39 +239,12 @@ Based on the research papers, here are some valid pattern combinations:
 
 3. **ResearchGate Publication**. Generation of Kolam-Designs Based on Contextual Array P Systems.
 
-## Usage for Frontend Engineers
+## Frontend Usage (brief)
 
-### API Integration
-
-```javascript
-// Generate different Kolam types
-fetch("/api/generate", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    m: 5,
-    n: 8,
-    style: "curves",
-    type: "hridaya", // Choose from: hridaya, pulli, rangoli, muggulu, alpana
-  }),
-})
-  .then((response) => response.json())
-  .then((data) => {
-    if (data.success) {
-      // Use data.pattern.connections to draw the Kolam
-      drawKolam(data.pattern.connections);
-    }
-  });
-```
-
-### Response Data Structure
-
-- **connections**: Array of line segments to draw the pattern
-- **dots**: Reference dot positions (for visualization)
-- **generator_sequence**: The mathematical sequence S
-- **extended_sequence**: The repeated sequence S' used for connections
-- **kolam_type**: Type of Kolam generated
-- **algorithm**: Algorithm used for generation
+- Open `test-frontend/index.html`
+- Configure Density, Type, and Style
+- Click Generate (optionally enable Animated Generation)
+- The Canvas renders the dots and connections from API output
 
 ---
 
