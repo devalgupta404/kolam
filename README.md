@@ -134,37 +134,6 @@ def classify_kolam(m, n):
         return 'muggulu', 0.75
 ```
 
-## Quick Start
-
-### Backend Setup
-
-1. Navigate to the backend directory:
-
-```bash
-cd backend
-```
-
-2. Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-3. Run the Flask server:
-
-```bash
-python app.py
-```
-
-The API will be available at `http://localhost:5000`
-
-### Testing with Frontend
-
-1. Open `test-frontend/index.html` in a web browser
-2. Set Density (controls m,n under the hood as a coprime pair)
-3. Select Kolam Type and Connection Style (curves/lines)
-4. (Optional) Keep "Animated Generation" checked for step-by-step drawing
-5. Click "Generate Pattern" to visualize
 
 
 ## Example Patterns
