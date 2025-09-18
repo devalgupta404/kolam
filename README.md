@@ -166,9 +166,6 @@ The API will be available at `http://localhost:5000`
 4. (Optional) Keep "Animated Generation" checked for step-by-step drawing
 5. Click "Generate Pattern" to visualize
 
-## API (overview only)
-
-This project exposes a small Flask API used by the test frontend. Refer to `backend/app.py` for the exact routes currently implemented. The test-frontend calls the API via `fetch` and renders results on an HTML5 Canvas. Detailed route documentation has been intentionally omitted here to keep the README concise and aligned with the current codebase.
 
 ## Example Patterns
 
@@ -183,15 +180,15 @@ Based on the research papers, here are some valid pattern combinations:
 
 ## Key Features
 
-- ✅ **Multiple Kolam Types**: 5 different traditional styles
-- ✅ **Research-Based Algorithms**: Based on academic papers
-- ✅ **Pattern Classification**: KolamNetV2 inspired classification
-- ✅ **Modular Arithmetic**: Algorithm 1 implementation
-- ✅ **Parameter Validation**: Coprime constraint checking
-- ✅ **Multiple Connection Styles**: Curves, lines
-- ✅ **RESTful API Design**: Clean, documented endpoints
-- ✅ **Interactive Test Frontend**: Real-time pattern generation
-- ✅ **Mathematical Foundation**: Traditional and modern approaches
+-  **Multiple Kolam Types**: 5 different traditional styles
+-  **Research-Based Algorithms**: Based on academic papers
+-  **Pattern Classification**: KolamNetV2 inspired classification
+-  **Modular Arithmetic**: Algorithm 1 implementation
+-  **Parameter Validation**: Coprime constraint checking
+-  **Multiple Connection Styles**: Curves, lines
+-  **RESTful API Design**: Clean, documented endpoints
+-  **Interactive Test Frontend**: Real-time pattern generation
+-  **Mathematical Foundation**: Traditional and modern approaches
 
 ## Mathematical Properties
 
@@ -223,29 +220,14 @@ Based on the research papers, here are some valid pattern combinations:
 | **Muggulu**    | Geometric designs    | Symmetric patterns, angular lines      | Medium         |
 | **Alpana**     | Floral motifs        | Petal-like, radial connections         | Medium         |
 
-## Next Steps
 
-1. Test the backend API with the provided frontend
-2. Integrate with the main frontend application
-3. Add more visualization options
-4. Implement pattern export functionality
-5. Add pattern history and favorites
 
 ## Research References
 
-1. **Chakraborty, S. K., & Manna, A. (2025)**. Extending Hridaya Kolam to Even-Ordered Dot Patterns and Their Applications. arXiv preprint arXiv:2507.02874.
+1. **[Chakraborty, S. K., & Manna, A. (2025)**. Extending Hridaya Kolam to Even-Ordered Dot Patterns and Their Applications. arXiv preprint arXiv:2507.02874.](https://www.nature.com/articles/s40494-024-01167-8)
 
-2. **Sasithradevi, A., Sabarinathan, S. Shoba, et al. (2024)**. KolamNetV2: efficient attention-based deep learning network for tamil heritage art-kolam classification. Heritage Science, 12, 60.
+2. **[Sasithradevi, A., Sabarinathan, S. Shoba, et al. (2024)**. KolamNetV2: efficient attention-based deep learning network for tamil heritage art-kolam classification. Heritage Science, 12, 60.](https://www.researchgate.net/publication/325187873_Generation_of_Kolam-Designs_Based_on_Contextual_Array_P_Systems)
 
-3. **ResearchGate Publication**. Generation of Kolam-Designs Based on Contextual Array P Systems.
+3. **[ResearchGate Publication**. Generation of Kolam-Designs Based on Contextual Array P Systems.](https://arxiv.org/html/2507.02874)
 
-## Frontend Usage (brief)
 
-- Open `test-frontend/index.html`
-- Configure Density, Type, and Style
-- Click Generate (optionally enable Animated Generation)
-- The Canvas renders the dots and connections from API output
-
----
-
-**Note**: The `test-frontend` folder is temporary and should be deleted after testing is complete.
